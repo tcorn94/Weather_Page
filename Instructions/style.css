@@ -1,0 +1,12 @@
+.container{
+    width: 960px;
+    border: solid 2px black;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+
+.widget{
+    width: 150px;
+    height: 200px;
+    background-color: cadetblue;
+}
