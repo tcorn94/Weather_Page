@@ -1,12 +1,31 @@
-.container{
+.weather{
     width: 960px;
     border: solid 2px black;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: larger;
+    height: 500px;
+    padding: 50px;
+    margin: 0 auto;
+}
 
+.city{
+line-height: 25px;
+text-decoration: underline;
 }
 
 .widget{
     width: 150px;
     height: 200px;
     background-color: cadetblue;
+}
+
+#searchArea{
+    width: 300px;
+    height: 800px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: black solid 2px;
+    background-color: #eeeeee;
+    margin: 30px;
+    padding: 20px;
+    margin-top: -500px;
 }

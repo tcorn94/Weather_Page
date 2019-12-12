@@ -7,9 +7,9 @@ var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=Bujumbura,Buru
             console.log(response);
       
           $(".city").text(response.name + " Weather Details"); 
-          $(".wind").text("wind speed: " + response.wind.speed);
-          $(".humidity").text("humidity: " + response.main.humidity);
-          $(".temp").text("temperature: " + response.main.temp);
+          $(".wind").text("Wind Speed: " + response.wind.speed);
+          $(".humidity").text("Humidity: " + response.main.humidity);
+          $(".temp").text("Temperature: " + response.main.temp);
        
       
         
