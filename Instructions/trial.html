@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <link rel="stylesheet" type="text/css" href="style.css">
+<head>
+  <meta charset="utf-8">
+  <title>Weather Updates</title>
+  <style type="text/css">
+    button,
+    div,
+    form,
+    input {
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+    <div class="jumbotron jumbotron-fluid bg-info">
+        <div class="container">
+          <h1 class="display-4">Weather Updates</h1>
+        
+        </div>
+      </div>
+  <div class="container">
+    
+
+    <!-- Rendered Buttons will get Dumped Here  -->
+    <div id="buttons-view"></div>
+
+    <form id="city-form">
+      <label for="city-input">Search by City</label>
+      <input type="text" id="city-input">
+      <br>
+
+      <!-- Button triggers new movie to be added -->
+      <input id="add-city" type="submit" value="Add a City">
+    </form>
+
+    <!-- Movies will Get Dumped Here -->
+    <div id="city-view"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      // Initial array of movies
+      var cities = ["Nerima", "Portland", "Orlando", "Coral Springs"];
+
+      // displayMovieInfo function re-renders the HTML to display the appropriate content
+      function displayWeather() {
+
+        var city = $(this).attr("data-name");
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q="+ city + "&units=imperial&APPID=5d10d67bc1c17364b9945c8bc7822de2";
+
+        // Creating an AJAX call for the specific movie button being clicked
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).then(function(response) {
+            console.log(response);
+
+          // Creating a div to hold the movie
+          var  cityDiv = $("<div class='place'>");
+
+          // Storing the rating data
+          var rating = response.name;
+
+          // Creating an element to have the rating displayed
+          var pOne = $("<p>").text(rating + " Weather Details");
+
+          // Displaying the rating
+          cityDiv.append(pOne);
+
+          var temperature = response.main.temp;
+
+          // Creating an element to have the rating displayed
+          var ptne = $("<p>").text(temperature + " Degrees");
+
+          // Displaying the rating
+          cityDiv.append(ptne);
+
+          // Storing the release year
+          var released = response.wind.speed;
+
+          // Creating an element to hold the release year
+          var pTwo = $("<p>").text("wind speed " + released);
+
+          // Displaying the release year
+          cityDiv.append(pTwo);
+
+          // Storing the plot
+          var plot = response.main.humidity;
+
+          // Creating an element to hold the plot
+          var pThree = $("<p>").text("Humidity: " + plot);
+
+          // Appending the plot
+          cityDiv.append(pThree);
+
+    
+
+          // Putting the entire movie above the previous movies
+          $("#city-view").prepend(cityDiv);
+        });
+
+      }
+
+      // Function for displaying movie data
+      function renderButtons() {
+
+        // Deleting the movies prior to adding new movies
+        // (this is necessary otherwise you will have repeat buttons)
+        $("#buttons-view").empty();
+
+        // Looping through the array of movies
+        for (var i = 0; i < cities.length; i++) {
+
+          // Then dynamicaly generating buttons for each movie in the array
+          // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+          var a = $("<button>");
+          // Adding a class of movie-btn to our button
+          a.addClass("movie-btn");
+          // Adding a data-attribute
+          a.attr("data-name", cities[i]);
+          // Providing the initial button text
+          a.text(cities[i]);
+          // Adding the button to the buttons-view div
+          $("#buttons-view").append(a);
+        }
+      }
+
+      // This function handles events where a movie button is clicked
+      $("#add-city").on("click", function(event) {
+        event.preventDefault();
+        // This line grabs the input from the textbox
+        var movie = $("#city-input").val().trim();
+
+        // Adding movie from the textbox to our array
+        cities.push(movie);
+
+        // Calling renderButtons which handles the processing of our movie array
+        renderButtons();
+      });
+
+      // Adding a click event listener to all elements with a class of "movie-btn"
+      $(document).on("click", ".movie-btn", displayWeather);
+
+      // Calling the renderButtons function to display the initial buttons
+      renderButtons();
+    </script>
+  </div>
+</body>
+
+</html>
